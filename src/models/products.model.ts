@@ -17,6 +17,13 @@ class ProductsModel {
     );
     return { id: newProduct.insertId, ...product };
   };
+
+  public all = async (): Promise<DataProduct[]> => {
+    const [product] = await this.connection.query(
+      Query.products.all,
+    );
+    return product as DataProduct[];
+  };
 }
 
 export default ProductsModel;
