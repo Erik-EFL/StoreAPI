@@ -6,4 +6,4 @@ app.use(express.json());
 
 export default app;
 
-console.log('hello world')
+console.log('hello world');
