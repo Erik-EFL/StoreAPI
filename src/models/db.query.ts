@@ -25,6 +25,11 @@ const Query = {
     DELETE FROM Trybesmith.Users
     WHERE id = ?
     `,
+    login:
+    `
+    SELECT * FROM Trybesmith.Users
+    WHERE username = ? AND password = ?
+    `,
   },
   products: {
     all:
@@ -54,9 +59,18 @@ const Query = {
     `,
   },
   orders: {
+    /*
+    Informação da query JSON_ARRAYAGG:
+    https://www.tutorialspoint.com/mysql/mysql_aggregate_functions_json_arraygg.htm
+    */
     all:
     `
-    SELECT * FROM Trybesmith.Orders
+    SELECT ord.id, ord.userId, JSON_ARRAYAGG(prd.id) AS productsIds
+    FROM Trybesmith.Products AS prd
+    INNER JOIN Trybesmith.Orders AS ord
+    ON ord.id = prd.orderId
+    GROUP BY ord.id
+    ORDER BY ord.userId
     `,
     one:
     `

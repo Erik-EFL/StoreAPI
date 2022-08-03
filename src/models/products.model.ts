@@ -4,7 +4,7 @@ import connection from './connection';
 import Query from './db.query';
 
 class ProductsModel {
-  public connection: Pool;
+  private connection: Pool;
 
   constructor() {
     this.connection = connection;
